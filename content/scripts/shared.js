@@ -42,7 +42,7 @@ function navigate(url, homePage) {
 
   xhr.onreadystatechange = function() {
     if (xhr.readyState == 4 && xhr.status == 200) {
-      setTimeout(function(){
+      setTimeout(function() {
         onHomePage = homePage;
         view.innerHTML = xhr.responseText;
         page.setAttribute("class", "slideIn");
@@ -79,13 +79,13 @@ function openGame(index) {
 function getUsersGames() {
   var stringifiedGames = localStorage.getItem('whoWonGames');
 
-  if(stringifiedGames != null || stringifiedGames != undefined) {
+  if (stringifiedGames != null || stringifiedGames != undefined) {
     games = JSON.parse(stringifiedGames);
   }
 }
 
 function updateNumberOfPlayers(positive) {
-  positive? addPlayerInput() : removePlayerInput();
+  positive ? addPlayerInput() : removePlayerInput();
 
   var numberOfPlayers = document.getElementById("numberOfPlayers");
   numberOfPlayers.innerHTML = playersCount + ' Players';
@@ -104,7 +104,7 @@ function addPlayerInput() {
 }
 
 function removePlayerInput() {
-  if(playersCount == 2) {
+  if (playersCount == 2) {
     return;
   }
   var lastPlayerNameElement = document.getElementById("player-" + playersCount);
@@ -129,7 +129,7 @@ function startGame() {
 
   saveGames();
 
-  loadGame();
+  openGame(games.length - 1);
 }
 
 function getPlayers(numberOfPlayers) {
@@ -150,29 +150,57 @@ function getPlayers(numberOfPlayers) {
 }
 
 function displayGames() {
-  var playedGamesElement = document.getElementById('playedGames');
+  var yourGamesElement = document.getElementById('your-games');
 
-  for (var game in games) {
-    var gameElement = document.createElement("div");
+  if (games == null || games.length < 1) {
+    yourGamesElement.innerHTML = '';
+  } else {
+    var playedGamesElement = document.getElementById('playedGames');
 
-    gameElement.setAttribute("class", "game");
-    (function(_game) {
-       gameElement.addEventListener("click", function() {openGame(_game);});
-     })(game);
+    createGamelistHeaders(playedGamesElement);
 
-    var gameNameElement = document.createElement("a");
-    gameNameElement.innerHTML = games[game].gameName;
-    gameNameElement.setAttribute("class", 'game-name');
+    for (var game in games) {
+      var gameElement = document.createElement("div");
 
-    var gameWinnerElement = document.createElement("span");
-    gameWinnerElement.innerHTML = games[game].winner;
-    gameWinnerElement.setAttribute("class", 'game-winner');
+      gameElement.setAttribute("class", "game");
+      (function(_game) {
+        gameElement.addEventListener("click", function() {
+          openGame(_game);
+        });
+      })(game);
 
-    gameElement.appendChild(gameNameElement);
-    gameElement.appendChild(gameWinnerElement);
+      var gameNameElement = document.createElement("a");
+      gameNameElement.innerHTML = games[game].gameName;
+      gameNameElement.setAttribute("class", 'game-name');
 
-    playedGamesElement.appendChild(gameElement);
+      var gameWinnerElement = document.createElement("span");
+      gameWinnerElement.innerHTML = games[game].winner;
+      gameWinnerElement.setAttribute("class", 'game-winner');
+
+      gameElement.appendChild(gameNameElement);
+      gameElement.appendChild(gameWinnerElement);
+
+      playedGamesElement.appendChild(gameElement);
+    }
   }
+}
+
+function createGamelistHeaders(playedGamesElement) {
+  var gameElement = document.createElement("div");
+  gameElement.setAttribute("class", "game");
+
+  var gameNameElement = document.createElement("span");
+  gameNameElement.innerHTML = "Game Name";
+  gameNameElement.setAttribute("class", 'game-name-header');
+
+  var gameWinnerElement = document.createElement("span");
+  gameWinnerElement.innerHTML = "Current Winner";
+  gameWinnerElement.setAttribute("class", 'game-winner-header');
+
+  gameElement.appendChild(gameNameElement);
+  gameElement.appendChild(gameWinnerElement);
+
+  playedGamesElement.appendChild(gameElement);
 }
 
 function loadGame() {
@@ -180,12 +208,14 @@ function loadGame() {
   page.setAttribute("class", "slideOut");
   xhr.onreadystatechange = function() {
     if (xhr.readyState == 4 && xhr.status == 200) {
-      setTimeout(function(){
+      setTimeout(function() {
         onHomePage = false;
         view.innerHTML = xhr.responseText;
         showHomeButton();
-        document.getElementById('gameName').innerHTML = currentGame.gameName;
+        document.getElementById('gameName').innerHTML = currentGame.isGolf ?
+          currentGame.gameName + " (Remember lowest score wins!)" : currentGame.gameName + "";
         loadCurrentPlayers();
+        loadRounds();
         page.setAttribute("class", "slideIn");
       }, 500);
     }
@@ -223,11 +253,98 @@ function loadCurrentPlayers() {
   }
 }
 
-function loadRoundScores() {
+function loadRounds() {
+  var roundScores = [];
+  var playerNames = [];
+  for (var i = 1; i <= currentGame.roundsPlayed; i++) {
+    roundScores[i] = [];
+    for (var j = 0; j < currentGame.numberOfPlayers; j++) {
+      roundScores[i][j] = currentGame.players[j]['round' + i];
 
+      if (i == 1) {
+        playerNames.push(currentGame.players[j].name);
+      }
+    }
+  }
+
+  if (currentGame.roundsPlayed > 0) {
+    var roundContainerElement = document.getElementById('roundScores');
+    while (roundContainerElement.firstChild) {
+      roundContainerElement.removeChild(roundContainerElement.firstChild);
+    }
+
+    var roundScoresElement = document.createElement("div");
+    roundScoresElement.setAttribute("class", "roundScores");
+
+    var playerHeaderElement = document.createElement("div");
+    playerHeaderElement.setAttribute("class", "playerScoreHeaderRow");
+
+    for (var playerName in playerNames) {
+      var currentPlayerElement = document.createElement("div");
+      currentPlayerElement.innerHTML = playerNames[playerName];
+      currentPlayerElement.setAttribute("class", "playerScoreHeader");
+
+      playerHeaderElement.appendChild(currentPlayerElement);
+    }
+
+    var roundRowElement = document.createElement("div");
+    roundRowElement.setAttribute("class", "total");
+
+    var roundNumberElement = document.createElement("div");
+    roundNumberElement.innerHTML = "Totals";
+    roundNumberElement.setAttribute("class", "roundNumberHeader");
+
+    roundRowElement.appendChild(roundNumberElement);
+
+    var rowScoresElement = document.createElement("div");
+    rowScoresElement.setAttribute("class", "roundPlayerScores")
+
+    for (var j = 0; j < currentGame.numberOfPlayers; j++) {
+      var roundScoreElement = document.createElement("div");
+      roundScoreElement.innerHTML = currentGame.players[j].total;
+      roundScoreElement.setAttribute("class", "playerRoundScore");
+
+      rowScoresElement.appendChild(roundScoreElement);
+    }
+
+    roundRowElement.appendChild(rowScoresElement);
+
+    roundScoresElement.appendChild(roundRowElement);
+
+    for (var i = 1; i <= currentGame.roundsPlayed; i++) {
+      var roundRowElement = document.createElement("div");
+      roundRowElement.setAttribute("class", "round" + i);
+
+      var roundNumberElement = document.createElement("div");
+      roundNumberElement.innerHTML = "Round " + i;
+      roundNumberElement.setAttribute("class", "roundNumberHeader");
+
+      roundRowElement.appendChild(roundNumberElement);
+
+      var rowScoresElement = document.createElement("div");
+      rowScoresElement.setAttribute("class", "roundPlayerScores")
+
+      for (var j = 0; j < currentGame.numberOfPlayers; j++) {
+        var roundScoreElement = document.createElement("div");
+        roundScoreElement.innerHTML = roundScores[i][j];
+        roundScoreElement.setAttribute("class", "playerRoundScore");
+
+        rowScoresElement.appendChild(roundScoreElement);
+      }
+
+      roundRowElement.appendChild(rowScoresElement);
+
+      roundScoresElement.appendChild(roundRowElement);
+    }
+
+    roundContainerElement.appendChild(playerHeaderElement);
+    roundContainerElement.appendChild(roundScoresElement);
+  }
 }
 
 function enterRoundScores() {
+  var highestTotal;
+
   for (var i = 0; i < currentGame.numberOfPlayers; i++) {
     var playerElement = document.getElementById("player-" + i);
 
@@ -239,6 +356,14 @@ function enterRoundScores() {
     currentGame.players[i]['round' + currentRound] = score;
 
     currentGame.players[i].total += score;
+
+    if (highestTotal == null || isWinning(currentGame.isGolf, currentGame.players[i].total, highestTotal)) {
+      currentGame.winner = currentGame.players[i].name;
+
+      highestTotal = currentGame.players[i].total;
+    }
+
+    inputElement.value = '';
   }
 
   currentGame.roundsPlayed++;
@@ -246,4 +371,14 @@ function enterRoundScores() {
   games[currentGameIndex] = currentGame;
 
   saveGames();
+
+  loadRounds();
+}
+
+function isWinning(isGolf, playerTotal, highestTotal) {
+  if (isGolf) {
+    return playerTotal < highestTotal;
+  } else {
+    return playerTotal > highestTotal;
+  }
 }

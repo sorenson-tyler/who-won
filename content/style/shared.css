@@ -5,8 +5,6 @@ html {
 }
 
 .page {
-  margin-left: 30%;
-  margin-right: 30%;
   padding: 15px;
   background-color: white;
   border-radius: 5px;
@@ -28,6 +26,7 @@ html {
   font-size: 16px;
   border: none;
   font-family: 'Roboto', sans-serif;
+  margin: 15px 0;
 }
 
 .btn:hover {
@@ -76,9 +75,19 @@ html {
   color: rgb(69, 123, 173);
 }
 
+.game-name-header {
+  width: 50%;
+  display: inline-block;
+  font-weight: bold;
+}
+
 .game-winner {
   width: 50%;
   display: inline-block ;
+}
+
+.game-winner-header {
+  font-weight: bold;
 }
 
 .game {
@@ -88,8 +97,8 @@ html {
 
 .slideOut {
   transform: translatex(-1500px);
-  margin-left: 30%;
-  margin-right: 30%;
+ margin-left: 200px;
+  margin-right: 200px;
   padding: 15px;
   background-color: white;
   border-radius: 5px;
@@ -101,12 +110,45 @@ html {
 
 .slideIn {
   transform: translatex(0);
-  margin-left: 30%;
-  margin-right: 30%;
+   margin-left: 200px;
+  margin-right: 200px;
   padding: 15px;
   background-color: white;
   border-radius: 5px;
   transition-property: all;
 	transition-duration: 1s;
 	transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+}
+
+#roundScores {
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.playerScoreHeaderRow {
+  margin-left: 100px;
+}
+
+.playerScoreHeader {
+  display: inline-block;
+  width: 100px;
+  text-align: center;
+}
+
+.roundScores {
+}
+
+.roundNumberHeader {
+  display: inline-block;
+  width: 100px;
+}
+
+.roundPlayerScores {
+  display: inline;
+}
+
+.playerRoundScore {
+  display: inline-block;
+  width: 100px;
+  text-align: center;
 }
