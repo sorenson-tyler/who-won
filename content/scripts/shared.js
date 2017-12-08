@@ -38,14 +38,14 @@ function loadHeader() {
 function navigate(url, homePage) {
   var xhr = new XMLHttpRequest();
 
-  page.setAttribute("class", "slideOut");
+  page.setAttribute("class", "col-6 slideOut");
 
   xhr.onreadystatechange = function() {
     if (xhr.readyState == 4 && xhr.status == 200) {
       setTimeout(function() {
         onHomePage = homePage;
         view.innerHTML = xhr.responseText;
-        page.setAttribute("class", "slideIn");
+        page.setAttribute("class", "col-6 slideIn");
         showHomeButton();
       }, 500);
     }
@@ -205,7 +205,7 @@ function createGamelistHeaders(playedGamesElement) {
 
 function loadGame() {
   var xhr = new XMLHttpRequest();
-  page.setAttribute("class", "slideOut");
+  page.setAttribute("class", "col-6 slideOut");
   xhr.onreadystatechange = function() {
     if (xhr.readyState == 4 && xhr.status == 200) {
       setTimeout(function() {
@@ -216,7 +216,7 @@ function loadGame() {
           currentGame.gameName + " (Remember lowest score wins!)" : currentGame.gameName + "";
         loadCurrentPlayers();
         loadRounds();
-        page.setAttribute("class", "slideIn");
+        page.setAttribute("class", "col-6 slideIn");
       }, 500);
     }
   }

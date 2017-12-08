@@ -1,11 +1,9 @@
 html {
   font-family: 'Roboto', sans-serif;
-  min-width: 656px;
   background-color: lightgrey;
 }
 
 .page {
-  padding: 15px;
   background-color: white;
   border-radius: 5px;
 }
@@ -97,9 +95,6 @@ html {
 
 .slideOut {
   transform: translatex(-1500px);
- margin-left: 200px;
-  margin-right: 200px;
-  padding: 15px;
   background-color: white;
   border-radius: 5px;
 
@@ -110,14 +105,11 @@ html {
 
 .slideIn {
   transform: translatex(0);
-   margin-left: 200px;
-  margin-right: 200px;
-  padding: 15px;
   background-color: white;
   border-radius: 5px;
   transition-property: all;
 	transition-duration: 1s;
-	transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+	transition-timing-function: cubic-bezier(1,1,1,1);
 }
 
 #roundScores {
@@ -151,4 +143,28 @@ html {
   display: inline-block;
   width: 100px;
   text-align: center;
+}
+//Grid
+[class*="col-"] {
+  padding: 15px;
+}
+.col-1 {width: 8.33%;display: inline-block;}
+.col-2 {width: 16.66%;display: inline-block;}
+.col-3 {width: 25%;display: inline-block;}
+.col-4 {width: 33.33%;display: inline-block;}
+.col-5 {width: 41.66%;display: inline-block;}
+.col-6 {width: 50%;display: inline-block;}
+.col-7 {width: 58.33%;display: inline-block;}
+.col-8 {width: 66.66%;display: inline-block;}
+.col-9 {width: 75%;display: inline-block;}
+.col-10 {width: 83.33%;display: inline-block;}
+.col-11 {width: 91.66%;display: inline-block;}
+.col-12 {width: 100%;display: inline-block;}
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    [class*="col-"] {
+        width: 100%;
+        display: inline-block;
+    }
 }

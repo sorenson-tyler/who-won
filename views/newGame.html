@@ -1,27 +1,29 @@
-<h1 class="page-header">Create New Game</h1>
-<div class="label">
-  Enter your game's name:
-</div>
-<input id="gameName" type="text" class="input" placeholder="Game Name" />
-<br/>
-<br/>
-<div class="num-players">
-  <span onclick="updateNumberOfPlayers(false)">-</span>
-  <span id="numberOfPlayers">4 Players</span>
-  <span onclick="updateNumberOfPlayers(true)">+</span>
-</div>
-<div id="players-names">
-  <input id="player-1" class="input" placeholder="Player 1's Name" />
-  <input id="player-2" class="input" placeholder="Player 2's Name" />
-  <input id="player-3" class="input" placeholder="Player 3's Name" />
-  <input id="player-4" class="input" placeholder="Player 4's Name" />
-</div>
-</br/>
+<div style="padding: 15px;">
+  <h1 class="page-header">Create New Game</h1>
+  <div class="label">
+    Enter your game's name:
+  </div>
+  <input id="gameName" type="text" class="input" placeholder="Game Name" />
+  <br/>
+  <br/>
+  <div class="num-players">
+    <span onclick="updateNumberOfPlayers(false)">-</span>
+    <span id="numberOfPlayers">4 Players</span>
+    <span onclick="updateNumberOfPlayers(true)">+</span>
+  </div>
+  <div id="players-names">
+    <input id="player-1" class="input" placeholder="Player 1's Name" />
+    <input id="player-2" class="input" placeholder="Player 2's Name" />
+    <input id="player-3" class="input" placeholder="Player 3's Name" />
+    <input id="player-4" class="input" placeholder="Player 4's Name" />
+  </div>
+  </br/>
 
-<div>
-  <input id="lowestWins" type="checkbox" name="lowestWins" value="lowWins"/>
-  <label for="lowestWins">Lowest score wins?</label>
-</div>
-<br/>
+  <div>
+    <input id="lowestWins" type="checkbox" name="lowestWins" value="lowWins" />
+    <label for="lowestWins">Lowest score wins?</label>
+  </div>
+  <br/>
 
-<button class="new-game btn" onclick="startGame()">Start Game</button>
+  <button class="new-game btn" onclick="startGame()">Start Game</button>
+</div>
