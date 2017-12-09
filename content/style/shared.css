@@ -149,7 +149,7 @@ a {
 }
 
 .slideOut {
-  transform: translatex(-1500px);
+  transform: translatex(-200%);
   background-color: white;
   -webkit-transition-property: -webkit-transform;
   -moz-transition-property: -moz-transform;
