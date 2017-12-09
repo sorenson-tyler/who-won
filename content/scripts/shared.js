@@ -311,6 +311,12 @@ function loadRounds() {
       var currentPlayerElement = document.createElement("div");
       currentPlayerElement.innerHTML = playerNames[playerName];
       currentPlayerElement.setAttribute("class", "playerScoreHeader");
+      if(playerNames[playerName] == currentGame.winner) {
+        var trophyElement = document.createElement("i");
+        trophyElement.setAttribute("class", "fa fa-trophy game-leader");
+        playerHeaderElement.appendChild(trophyElement);
+        currentPlayerElement.setAttribute("style", "color: rgb(138, 135, 59);")
+      }
 
       playerHeaderElement.appendChild(currentPlayerElement);
     }
