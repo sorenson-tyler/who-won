@@ -27,6 +27,7 @@ function loadHeader() {
       var header = document.getElementById("header");
       header.innerHTML = xhr.responseText;
       loadHome();
+      showHomeButton();
     }
   }
 
@@ -64,7 +65,7 @@ function showHomeButton() {
     displayGames();
   } else {
     var homeButton = document.getElementById("homeButton");
-    homeButton.style.display = "block";
+    homeButton.style.display = "inline-block";
   }
 }
 
@@ -193,12 +194,21 @@ function createGamelistHeaders(playedGamesElement) {
   gameNameElement.innerHTML = "Game Name";
   gameNameElement.setAttribute("class", 'game-name-header');
 
+  var gameWinnerContainer = document.createElement("span");
+
   var gameWinnerElement = document.createElement("span");
+
   gameWinnerElement.innerHTML = "Current Winner";
   gameWinnerElement.setAttribute("class", 'game-winner-header');
 
+  var trophyElement = document.createElement("i");
+  trophyElement.setAttribute("class", "fa fa-trophy icon");
+
+  gameWinnerContainer.appendChild(trophyElement)
+  gameWinnerContainer.appendChild(gameWinnerElement);
+
   gameElement.appendChild(gameNameElement);
-  gameElement.appendChild(gameWinnerElement);
+  gameElement.appendChild(gameWinnerContainer);
 
   playedGamesElement.appendChild(gameElement);
 }
@@ -279,6 +289,7 @@ function loadRounds() {
     var playerHeaderElement = document.createElement("div");
     playerHeaderElement.setAttribute("class", "playerScoreHeaderRow");
 
+    //Players Names
     for (var playerName in playerNames) {
       var currentPlayerElement = document.createElement("div");
       currentPlayerElement.innerHTML = playerNames[playerName];
@@ -287,6 +298,7 @@ function loadRounds() {
       playerHeaderElement.appendChild(currentPlayerElement);
     }
 
+    //Total Scores
     var roundRowElement = document.createElement("div");
     roundRowElement.setAttribute("class", "total");
 

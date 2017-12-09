@@ -3,13 +3,68 @@ html {
   background-color: lightgrey;
 }
 
-.page {
-  background-color: white;
-  border-radius: 5px;
+body {
+  margin: 0;
+}
+
+a {
+  color: rgb(69, 123, 173);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+#header {
+  background-color: rgb(44, 144, 166);
+  height: 20%;
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+#homeButton {
+  z-index: 2;
+  display: inline-block;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  border: 1px solid;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+#homeButton:hover {
+  color: lightgrey;
+  border-color: lightgrey;
+}
+
+.title {
+  text-align: right;
+  display: inline-block;
+  position: absolute;
+  right: 15px;
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.icon {
+  padding-right: 10px;
+}
+
+.fa-trophy {
+  color: rgb(138, 135, 59);
+}
+
+.container {
+  z-index: 1;
+  position: relative;
+  margin-top: 65px;
 }
 
 .page-header {
-  text-align: center;
 }
 
 .new-game {
@@ -18,13 +73,13 @@ html {
 
 .btn {
   border-radius: 4px;
-  background-color: transparent;
   box-shadow: 5px 5px 3px #ddd;
   padding: 5px 15px;
   font-size: 16px;
   border: none;
   font-family: 'Roboto', sans-serif;
   margin: 15px 0;
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }
 
 .btn:hover {
@@ -96,20 +151,27 @@ html {
 .slideOut {
   transform: translatex(-1500px);
   background-color: white;
-  border-radius: 5px;
-
-  transition-property: all;
+  -webkit-transition-property: -webkit-transform;
+  -moz-transition-property: -moz-transform;
+  -ms-transition-property: -ms-transform;
+  -o-transition-property: -o-transform;
+  transition-property: transform;
 	transition-duration: 1s;
 	transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
 }
 
 .slideIn {
   transform: translatex(0);
   background-color: white;
-  border-radius: 5px;
-  transition-property: all;
+  -webkit-transition-property: -webkit-transform;
+  -moz-transition-property: -moz-transform;
+  -ms-transition-property: -ms-transform;
+  -o-transition-property: -o-transform;
+  transition-property: transform;
 	transition-duration: 1s;
 	transition-timing-function: cubic-bezier(1,1,1,1);
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
 }
 
 #roundScores {
