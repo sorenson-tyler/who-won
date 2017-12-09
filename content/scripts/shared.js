@@ -98,6 +98,7 @@ function addPlayerInput() {
   var newPlayerNameElement = document.createElement("input");
   newPlayerNameElement.setAttribute("class", "input");
   newPlayerNameElement.setAttribute("id", "player-" + playersCount);
+  newPlayerNameElement.setAttribute("type", "text");
   newPlayerNameElement.setAttribute("placeholder", "Player " + playersCount + "'s Name");
 
   var listElement = document.getElementById("players-names");
@@ -117,9 +118,25 @@ function removePlayerInput() {
 }
 
 function startGame() {
+  var gameName = document.getElementById("gameName").value;
+
+  if (gameName == null || gameName == "") {
+    alert('Please enter a game name before continuing.');
+    return;
+  }
+  for (var i = 1; i <= playersCount; i++) {
+    var playerElement = document.getElementById("player-" + i);
+
+    var name = playerElement.value;
+
+    if (name == null || name == "") {
+      alert('Please enter a name for each player before continuing.');
+      return;
+    }
+  }
   currentGame = {
     numberOfPlayers: playersCount,
-    gameName: document.getElementById("gameName").value,
+    gameName: gameName,
     isGolf: document.getElementById("lowestWins").checked,
     players: getPlayers(playersCount),
     winner: 'No Scores',
@@ -308,6 +325,7 @@ function loadRounds() {
 
     roundRowElement.appendChild(roundNumberElement);
 
+    //Player total scores
     var rowScoresElement = document.createElement("div");
     rowScoresElement.setAttribute("class", "roundPlayerScores")
 
@@ -323,6 +341,7 @@ function loadRounds() {
 
     roundScoresElement.appendChild(roundRowElement);
 
+    //Round header number with player score
     for (var i = 1; i <= currentGame.roundsPlayed; i++) {
       var roundRowElement = document.createElement("div");
       roundRowElement.setAttribute("class", "round" + i);
@@ -363,6 +382,11 @@ function enterRoundScores() {
     var inputElement = playerElement.children[1];
 
     var score = parseInt(inputElement.value);
+
+    if (isNaN(score)) {
+      alert('Please enter a number score for each player before continuing.');
+      return;
+    }
 
     var currentRound = currentGame.roundsPlayed + 1;
     currentGame.players[i]['round' + currentRound] = score;
