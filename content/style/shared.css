@@ -122,6 +122,14 @@ a {
   width: 100%;
 }
 
+.minus {
+  margin-right: 10px;
+}
+
+.plus {
+  margin-left: 10px;
+}
+
 .game-name {
   width: 50%;
   display: inline-block;
