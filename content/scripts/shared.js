@@ -60,12 +60,12 @@ function navigate(url, homePage) {
 function showHomeButton() {
   if (onHomePage) {
     var homeButton = document.getElementById("homeButton");
-    homeButton.style.display = "none";
+    homeButton.setAttribute("class","hide");
 
     displayGames();
   } else {
     var homeButton = document.getElementById("homeButton");
-    homeButton.style.display = "inline-block";
+    homeButton.setAttribute("class","show");
   }
 }
 
@@ -96,7 +96,7 @@ function addPlayerInput() {
   playersCount++;
 
   var newPlayerNameElement = document.createElement("input");
-  newPlayerNameElement.setAttribute("class", "input");
+  newPlayerNameElement.setAttribute("class", "input new-player");
   newPlayerNameElement.setAttribute("id", "player-" + playersCount);
   newPlayerNameElement.setAttribute("type", "text");
   newPlayerNameElement.setAttribute("placeholder", "Player " + playersCount + "'s Name");
@@ -114,7 +114,10 @@ function removePlayerInput() {
   playersCount--;
 
   var listElement = document.getElementById("players-names");
-  listElement.removeChild(lastPlayerNameElement);
+  lastPlayerNameElement.setAttribute("class", "input delete-player");
+
+  setTimeout(function(){ listElement.removeChild(lastPlayerNameElement); }, 500);
+
 }
 
 function startGame() {
