@@ -44,6 +44,9 @@ function navigate(url, homePage) {
   xhr.onreadystatechange = function() {
     if (xhr.readyState == 4 && xhr.status == 200) {
       setTimeout(function() {
+        if(url === 'views/newGame.html') {
+          playersCount = 4;
+        }
         onHomePage = homePage;
         view.innerHTML = xhr.responseText;
         page.setAttribute("class", "col-6 slideIn");
